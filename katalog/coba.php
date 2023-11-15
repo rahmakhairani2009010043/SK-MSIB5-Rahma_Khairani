@@ -54,66 +54,35 @@
             </div>
         </header>
         <section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            <?php
-            $itemsPerPage = 8; // Jumlah item per halaman
-            $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; // Halaman saat ini
-            
-            // Query untuk mendapatkan jumlah total produk
-            $totalItemsQuery = "SELECT COUNT(*) as total FROM produk";
-            $resultTotalItems = mysqli_query($conn, $totalItemsQuery);
-            $rowTotalItems = mysqli_fetch_assoc($resultTotalItems);
-            $totalItems = $rowTotalItems['total'];
-            
-            // Menghitung total halaman
-            $totalPages = ceil($totalItems / $itemsPerPage);
-            
-            // Menghitung offset untuk query
-            $offset = ($currentPage - 1) * $itemsPerPage;
-            
-            // Query untuk mengambil data produk dengan paginasi
-            $query = "SELECT p.id, p.nama, p.harga, p.status, p.gambar, k.kategori, g.nama_grup FROM `produk` AS p JOIN kategori AS k ON k.id = p.id_kategori JOIN grub AS g ON g.id = p.id_grub LIMIT $offset, $itemsPerPage";
-            $result = mysqli_query($conn, $query);
-            
-            while ($row = mysqli_fetch_assoc($result)) {
-                ?>
-                <div class="col mb-5">
-                    <div class="card h-100">
-                        <!-- Product image -->
-                        <img class="card-img-top" src="<?php echo htmlspecialchars($row['gambar']); ?>" alt="Product Image" />
-                        <!-- Product details -->
-                        <div class="card-body p-1">
-                            <div class="text-center">
-                                <p class="text-muted"><?php echo htmlspecialchars($row['kategori']); ?></p>
-                                <h7 class="fw-bolder"><?php echo htmlspecialchars($row['nama']); ?></h7>
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <?php
+                while ($row = mysqli_fetch_assoc($query)) {
+                    ?>
+                    <div class="col mb-5">
+                        <div class="card h-100">
+                            <!-- Product image -->
+                            <img class="card-img-top" src="<?php echo htmlspecialchars($row['gambar']); ?>" alt="Product Image" />
+                            <!-- Product details -->
+                            <div class="card-body p-1">
+                                <div class="text-center">
+                                    <p class="text-muted"><?php echo htmlspecialchars($row['kategori']); ?></p>
+                                    <h7 class="fw-bolder"><?php echo htmlspecialchars($row['nama']); ?></h7>
+                                    <!-- Product category -->
                                 <!-- Product status -->
                                 <p class="text-danger"><?php echo htmlspecialchars($row['status']); ?></p>
-                                <!-- Product price -->
-                                <span>Rp. <?php echo number_format($row['harga'], 0, ',','.'); ?></span>
-                            </div>
-                        </div> 
+                                    <!-- Product price -->
+                                    <span>Rp. <?php echo number_format($row['harga'], 0, ',','.'); ?></span>
+                                </div>
+                            </div> 
+                        </div>
                     </div>
-                </div>
-                <?php
-            }
-            ?>
-            <!-- Pagination -->
-            <div class="col-12 mt-4">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-                        <?php for ($i = 1; $i <= $totalPages; $i++) { ?>
-                            <li class="page-item <?php echo ($i == $currentPage) ? 'active' : ''; ?>">
-                                <a class="page-link" href="?page=<?php echo $i; ?>"><?php echo $i; ?></a>
-                            </li>
-                        <?php } ?>
-                    </ul>
-                </nav>
+                    <?php
+                }
+                ?>
             </div>
-            <!-- End Pagination -->
         </div>
-    </div>
-        </section>
+    </section>
         <!-- Footer-->
         <footer class="py-5 bg-dark">
             <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Rahma Khairani 2023</p></div>

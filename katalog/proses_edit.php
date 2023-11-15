@@ -16,7 +16,7 @@ if($_FILES["fileToUpload"]["size"]!=0){   // Jika browse image di tekan maka $_F
     }
 }
 
-$result = mysqli_query($conn, "UPDATE `produk` set `nama` = '$nama', `harga` = '$harga', `status` = '$status', `id_kategori` = '$kategori', `id_grub` = '$grub', `gambar`= '$target_file' where `id` = '$_GET[id]'");
+$result = mysqli_query($conn, "UPDATE `produk` set `nama` = '$nama', `harga` = '$harga', `status` = '$status', `id_kategori` = '$kategori', `id_grub` = '$grub' where `id` = '$_GET[id]'");
 
 header("Location:admin.php");
 
