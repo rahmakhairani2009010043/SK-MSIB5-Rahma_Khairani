@@ -85,7 +85,8 @@
                                     <td>
                                         <center>
                                         <a href="edit.php?id=<?php echo $data["id"] ?>" class="label label-warning"> Ubah </a>&nbsp; 
-                                    <a href="proses_hapus.php?id=<?php echo $data["id"] ?>" class="label label-danger">Delete </a>
+                                    <a href="proses_hapus.php?id=<?php echo $data["id"] ?>" onclick="return confirm('Yakin Ingin Menghapus Data?')"
+                                    class="label label-danger">Delete </a>
                                         </center>
                                     </td>
                                 </tr>
